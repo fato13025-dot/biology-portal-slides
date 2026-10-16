@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<title>التصنيف الحديث | بوابة الأحياء</title>
+<style>
+html,body{margin:0;height:100%;background:#f6f7f5;font-family:Arial,sans-serif;overflow:hidden}
+.viewer{height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:18px;box-sizing:border-box}
+.stage{width:min(96vw,1400px);aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;background:#fff;box-shadow:0 10px 32px rgba(0,0,0,.12);border-radius:12px;overflow:hidden}
+.stage img{width:100%;height:100%;object-fit:contain;display:block}
+.controls{display:flex;align-items:center;justify-content:center;gap:16px;direction:ltr}
+button{border:0;background:#647b68;color:#fff;width:46px;height:46px;border-radius:50%;font-size:24px;cursor:pointer;box-shadow:0 4px 12px rgba(0,0,0,.12)}
+button:disabled{opacity:.35;cursor:default}
+.counter{min-width:72px;text-align:center;color:#465249;font-size:16px;direction:ltr}
+@media (max-width:700px){.viewer{padding:8px;gap:10px}.stage{width:100%;border-radius:8px}.controls{gap:12px}button{width:42px;height:42px}}
+</style>
+</head>
+<body>
+<div class="viewer">
+  <div class="stage"><img id="slide" alt="شريحة من درس التصنيف الحديث"></div>
+  <div class="controls">
+    <button id="prev" aria-label="السابق">‹</button>
+    <div class="counter" id="counter"></div>
+    <button id="next" aria-label="التالي">›</button>
+  </div>
+</div>
+<script>
+const total=7; let current=1;
+const img=document.getElementById('slide'), counter=document.getElementById('counter'), prev=document.getElementById('prev'), next=document.getElementById('next');
+function render(){img.src=`slides/slide-${current}.png`;counter.textContent=`${current} / ${total}`;prev.disabled=current===1;next.disabled=current===total;}
+prev.onclick=()=>{if(current>1){current--;render()}};
+next.onclick=()=>{if(current<total){current++;render()}};
+document.addEventListener('keydown',e=>{if(e.key==='ArrowLeft'&&current<total){current++;render()} if(e.key==='ArrowRight'&&current>1){current--;render()}});
+render();
+</script>
+</body>
+</html>
